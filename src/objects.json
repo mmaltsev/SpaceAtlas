@@ -1,0 +1,143 @@
+{
+  "Sun": {
+    "name": "Sun",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Star",
+    "image_path": "img/sun.png",
+    "mean_radius": 695700,
+    "distance_to_star": 0,
+	"temperature": "5,500 °C",
+	"life": "none"
+  },
+  "Mecrury": {
+    "name": "Mecrury",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/mercury.png",
+    "mean_radius": 2439.7,
+    "distance_to_star": 0.387098,
+	"temperature": "-173 to 427°C",
+	"life": "none",
+	"per": 0.307499,
+	"sma": 0.387098,
+	"ecc": 0.205630
+  },
+  "Venus": {
+    "name": "Venus",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/venus.png",
+    "mean_radius": 6051.8,
+    "distance_to_star": 0.723332,
+	"temperature": "462 °C",
+	"life": "none"
+  },
+  "Earth": {
+    "name": "Earth",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/earth.png",
+    "mean_radius": 6371.0,
+    "distance_to_star": 1.00000102,
+	"temperature": "-88 to 58°C",
+	"life": "DNA, RNA and Proteins-based",
+	"common_life_form": "jellyfish",
+	"intelligence": "average"
+  },
+  "Mars": {
+    "name": "Mars",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/mars.png",
+    "mean_radius": 3389.5,
+    "distance_to_star": 1.523679,
+	"temperature": "-153 to 20 °C",
+	"life": "none"
+  },
+  "Jupiter": {
+    "name": "Jupiter",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/jupiter.png",
+    "mean_radius": 69911,
+    "distance_to_star": 5.20260,
+	"temperature": "-148 °C",
+	"life": "none"
+  },
+  "Saturn": {
+    "name": "Saturn",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/saturn.png",
+    "mean_radius": 58232,
+    "distance_to_star": 9.5549,
+	"temperature": "-178 °C",
+	"life": "none"
+  },
+  "Uranus": {
+    "name": "Uranus",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/uranus.png",
+    "mean_radius": 25362,
+    "distance_to_star": 19.2184,
+	"life": "none",
+	"temperature": "-216 °C",
+	"intelligence": "none"
+  },
+  "Neptune": {
+    "name": "Neptune",
+    "system": "Solar",
+	"orbit_star": "Sun",
+    "type": "Planet",
+    "image_path": "img/neptune.png",
+    "mean_radius": 24622,
+    "distance_to_star": 30.110387,
+	"temperature": "-214 °C",
+	"life": "none"
+  },
+  "Proxima_Centauri": {
+    "name": "Proxima Centauri",
+    "system": "Alpha_Cen",
+	"orbit_star": "Proxima_Centauri",
+    "type": "Star",
+    "image_path": "img/sun.png",
+    "mean_radius": 982.41,
+    "distance_to_star": 19.2184,
+	"life": "none",
+	"temperature": "2769 °C",
+	"intelligence": "none"
+  },
+  "Rigil_Kentaurus": {
+    "name": "Proxima Centauri",
+    "system": "Alpha_Cen",
+	"orbit_star": "Rigil_Kentaurus",
+    "type": "Star",
+    "image_path": "img/sun.png",
+    "mean_radius": 982.41,
+    "distance_to_star": 19.2184,
+	"life": "none",
+	"temperature": "2769 °C",
+	"intelligence": "none"
+  },
+  "Proxima_b": {
+    "name": "Proxima Centauri b",
+    "system": "Alpha_Cen",
+	"orbit_star": "Rigil_Kentaurus",
+    "type": "Planet",
+    "image_path": "img/earth.png",
+    "mean_radius": 898,
+    "distance_to_star": 0.0485,
+	"life": "none",
+	"temperature": "−39 °C",
+	"intelligence": "none"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Solar": {
+    "name": "Solar",
+    "stars": ["Sun"],
+	"planets": ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+    "start_point": "Earth"
+  },
+  "Alpha_Cen": {
+    "name": "Alpha Centauri",
+    "stars": ["Proxima Centauri", "Rigil Kentaurus"],
+	"planets": ["Proxima b"],
+    "start_point": "Proxima b"
+  }
+}
