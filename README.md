@@ -1,2 +1,2 @@
 # SpaceAtlas
-Detailed visualization of solar system and surroundings.
+Detailed visualization of the Solar System and surroundings.
