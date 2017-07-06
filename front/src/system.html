@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body id="body" class="body">
-  <div id="infobox" class="infobox-inactive"></div>
+  <!--div id="infobox" class="infobox-inactive"></div-->
   <div id="content"></div>
   <a href="space.html">
     <div id="smallMap"></div>
@@ -12,11 +12,12 @@
   <!-- SCRIPTS BLOCK -->
   <script src="../node_modules/d3/build/d3.min.js"></script>
   <script src="../node_modules/axios/dist/axios.min.js"></script>
+  <script src="js/common.js"></script>
   <script src="js/system.js"></script>
   <script src="js/space.js"></script>
   <script>
     window.onload = function() {
-      systemDraw()
+      systemDraw('content')
       spaceDraw('smallMap', smallMap.clientWidth, smallMap.clientHeight)
     }
   </script>

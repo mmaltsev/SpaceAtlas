@@ -14,7 +14,6 @@ function spaceDraw(elementId, width, height) {
   	var canvasHeight = height
   }
   
-  console.log(elementId)
   var spaceSVG = d3.select('#' + elementId)
     .append('svg')
     .attr('width', canvasWidth)

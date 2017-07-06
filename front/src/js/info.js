@@ -1,4 +1,4 @@
-function processInfoData(object) {
+function infoProcessData(object) {
   objectImageContainer = document.getElementById('objectImageContainer')
   objectInfobox = document.getElementById('objectInfobox')
   objectImageContainer.innerHTML = '<img src="' + object.image_path + '" class="object-image" />'
@@ -14,21 +14,9 @@ function processInfoData(object) {
   }
 }
 
-function objectExtract() {
-  url = '' + window.location
-  getIndex = url.search('\\?')
-  if (getIndex > -1) {
-	url = url.substring(getIndex + 1, url.length)
-	systemIndex = url.search('=')
-	url = url.substring(systemIndex + 1, url.length)
-  } else {
-	url = ''
-  }
-  return url
-}
-
 function infoDraw() {
-  objectName = objectExtract()
+  objectName = commonNameExtract()
+
   if (objectName) {
     axios({
       method:'get',
@@ -37,10 +25,13 @@ function infoDraw() {
     })
       .then(function (response) {
         console.log('Successful data upload')
-        processInfoData(response.data[objectName])
+        infoProcessData(response.data[objectName])
       })
       .catch(function (error) {
         console.log(error);
       });
+  } else {
+    console.log('Erorr: No object name specified')
+    window.location.href = 'index.html'
   }
 }
