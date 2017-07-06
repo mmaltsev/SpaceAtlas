@@ -1,0 +1,23 @@
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body id="body" class="body">
+  <!--div id="infobox" class="infobox-inactive"></div>
+  <div id="content"></div>
+  <a href="space.html">
+    <div id="smallMap"></div>
+  </a-->
+  <div id="content"></div>
+
+  <!-- SCRIPTS BLOCK -->
+  <script src="../node_modules/d3/build/d3.min.js"></script>
+  <script src="../node_modules/axios/dist/axios.min.js"></script>
+  <script src="js/space.js"></script>
+  <script>
+    window.onload = function() {
+      spaceDraw('content')
+    }
+  </script>
+</body>
+</html>

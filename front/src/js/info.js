@@ -1,4 +1,4 @@
-function processData(object, systemName) {
+function processInfoData(object) {
   objectImageContainer = document.getElementById('objectImageContainer')
   objectInfobox = document.getElementById('objectInfobox')
   objectImageContainer.innerHTML = '<img src="' + object.image_path + '" class="object-image" />'
@@ -27,20 +27,20 @@ function objectExtract() {
   return url
 }
 
-window.onload = function() {
+function infoDraw() {
   objectName = objectExtract()
   if (objectName) {
-    $.ajax({
-      contentType: "application/json",
-      url: 'objects.json',
-      dataType: "json"
+    axios({
+      method:'get',
+      url:'json/objects.json',
+      responseType:'json'
     })
-      .then(function (data) {
-        console.log('Successful JSON upload')
-        processData(data[objectName])
+      .then(function (response) {
+        console.log('Successful data upload')
+        processInfoData(response.data[objectName])
       })
-      .fail(function(xhr, status, error) {
-        console.log('Error: ' + error + '. XHR: ' + xhr + '. Status: ' + status)
-      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 }

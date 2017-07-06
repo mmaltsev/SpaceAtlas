@@ -51,11 +51,11 @@ function objectDraw(object, systemSVG, constants) {
 	.attr('onmouseout', 'objectHighlight("' + object.name + '", false)')
 
   systemSVG.append('a')
-	.attr('xlink:href', 'object.html?name=' + object.name) 
+	.attr('xlink:href', 'info.html?name=' + object.name) 
 	.append('circle')
-    .attr('cx', xOffset + width / 2)
-    .attr('cy', window.innerHeight / 2)
-    .attr('r', width * constants.imageInnerMarginRatio / 2)
+  .attr('cx', xOffset + width / 2)
+  .attr('cy', window.innerHeight / 2)
+  .attr('r', width * constants.imageInnerMarginRatio / 2)
 	.style('fill', 'transparent')
 	.style('cursor', 'pointer')
 	.attr('onmouseover', 'objectHighlight("' + object.name + '", true)')
@@ -84,7 +84,7 @@ function setConstants(systemArr) {
   var startObject = systemArr[systemArr.length - 2]
   constants.canvasMargin = startObject.distance_to_star * constants.objectDistanceRatio - 
         window.innerWidth / 2 + startObject.mean_radius / 2 * constants.objectSizeRatio + 
-	    constants.starMarginAbs
+	      constants.starMarginAbs
   return constants
 }
 
@@ -119,44 +119,44 @@ function objToSortArr(data, systemName, sort) {
   return systemArr;
 }
 
-function processData(data, systemName) {
+function processSystemData(data, systemName) {
   systemArr = objToSortArr(data, systemName, sort='desc')
   constants = setConstants(systemArr)
 
   var systemSVG = canvasDraw(elementId = 'content')
   for (var i = 0; i < systemArr.length; i++) {
-	objectDraw(systemArr[i], systemSVG, constants)
+	  objectDraw(systemArr[i], systemSVG, constants)
   }
   var smallMap = document.getElementById('smallMap')
-  var systemSVGSmall = spaceDraw('smallMap', smallMap.clientWidth, smallMap.clientHeight)
 }
 
 function systemNameExtract() {
   var url = '' + window.location
   var getIndex = url.search('\\?')
   if (getIndex > -1) {
-	url = url.substring(getIndex + 1, url.length)
-	var systemIndex = url.search('=')
-	url = url.substring(systemIndex + 1, url.length)
+	  url = url.substring(getIndex + 1, url.length)
+	  var systemIndex = url.search('=')
+	  url = url.substring(systemIndex + 1, url.length)
   } else {
-	url = ''
+	  url = ''
   }
   return url
 }
 
-window.onload = function() {
+function systemDraw() {
   systemName = systemNameExtract() || 'Solar'
-  $.ajax({
-    contentType: "application/json",
-    url: 'objects.json',
-    dataType: "json"
+
+  axios({
+    method:'get',
+    url:'json/objects.json',
+    responseType:'json'
   })
-    .then(function (data) {
-      console.log('Successful JSON upload')
-      processData(data, systemName)
+    .then(function (response) {
+      console.log('Successful data upload')
+      processSystemData(response.data, systemName)
     })
-    .fail(function(xhr, status, error) {
-      console.log('Error: ' + error + '. XHR: ' + xhr + '. Status: ' + status)
-    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 	
