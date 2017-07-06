@@ -14,7 +14,7 @@ function infoProcessData(object) {
   }
 }
 
-function infoDraw() {
+function infoDraw(systemName) {
   objectName = commonNameExtract()
 
   if (objectName) {
@@ -26,6 +26,7 @@ function infoDraw() {
       .then(function (response) {
         console.log('Successful data upload')
         infoProcessData(response.data[objectName])
+        systemName.set(response.data[objectName].system)
       })
       .catch(function (error) {
         console.log(error);

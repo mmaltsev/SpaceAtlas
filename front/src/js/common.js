@@ -41,3 +41,14 @@ function commonCompareAsc(a, b) {
     return 1;
   return 0;
 }
+
+function commonWrapper(callback) {
+  var value;
+  this.set = function(v) {
+      value = v;
+      callback(this);
+  }
+  this.get = function() {
+      return value;
+  }  
+}

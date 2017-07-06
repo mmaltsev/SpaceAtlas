@@ -11,7 +11,7 @@ function systemObjectDraw(object, systemSVG, constants) {
   var width = object.mean_radius * constants.objectSizeRatio
   var height = object.mean_radius * constants.objectSizeRatio
   var xOffset = object.distance_to_star * constants.objectDistanceRatio - constants.canvasMargin + constants.starMarginAbs
-  var yOffset = (window.innerHeight - height) / 2
+  var yOffset = (constants.windowHeight - height) / 2
   if (object.type === 'Star') {
     width = width * constants.starRatio
   	xOffset = - width / 2 - constants.canvasMargin
@@ -29,7 +29,7 @@ function systemObjectDraw(object, systemSVG, constants) {
 	  
 	systemSVG.append('ellipse')
     .attr('cx', 0 - constants.canvasMargin)
-    .attr('cy', window.innerHeight / 2)
+    .attr('cy', constants.windowHeight / 2)
     .attr('rx', ellipseMajor)
 	  .attr('ry', ellipseMinor)
 	  .attr('vector-effect',  'non-scaling-stroke')
@@ -54,7 +54,7 @@ function systemObjectDraw(object, systemSVG, constants) {
 	  .attr('xlink:href', 'info.html?name=' + object.name) 
 	  .append('circle')
     .attr('cx', xOffset + width / 2)
-    .attr('cy', window.innerHeight / 2)
+    .attr('cy', constants.windowHeight / 2)
     .attr('r', width * constants.imageInnerMarginRatio / 2)
     .attr('onmouseover', 'systemObjectHighlight("' + object.name + '", true)')
 	  .attr('onmouseout', 'systemObjectHighlight("' + object.name + '", false)')
@@ -74,8 +74,10 @@ function systemCanvasDraw(elementId) {
   return systemSVG
 }
 
-function systemConstantsSet(systemArr) {
+function systemConstantsSet(systemArr, width, height) {
   var constants = {}
+  constants.windowWidth = width || window.innerWidth
+  constants.windowHeight = height || window.innerHeight
   constants.imageInnerMarginRatio = 0.85
   constants.objectDistanceRatio = 12000
   constants.objectSizeRatio = 0.05
@@ -83,14 +85,14 @@ function systemConstantsSet(systemArr) {
   constants.starMarginAbs = 8000
   var startObject = systemArr[systemArr.length - 2]
   constants.canvasMargin = startObject.distance_to_star * constants.objectDistanceRatio - 
-        window.innerWidth / 2 + startObject.mean_radius / 2 * constants.objectSizeRatio + 
+        constants.windowWidth / 2 + startObject.mean_radius / 2 * constants.objectSizeRatio + 
 	      constants.starMarginAbs
   return constants
 }
 
-function systemProcessData(data, elementId, systemName) {
+function systemProcessData(data, elementId, systemName, width, height) {
   systemArr = commonObjToSortArr(data, systemName, 'desc')
-  constants = systemConstantsSet(systemArr)
+  constants = systemConstantsSet(systemArr, width, height)
 
   var systemSVG = systemCanvasDraw(elementId)
   for (var i = 0; i < systemArr.length; i++) {
@@ -98,8 +100,8 @@ function systemProcessData(data, elementId, systemName) {
   }
 }
 
-function systemDraw(elementId, systemName) {
-  systemName = commonNameExtract() || 'Solar'
+function systemDraw(elementId, systemName, width, height) {
+  systemName = systemName || commonNameExtract() || 'Solar'
 
   axios({
     method:'get',
@@ -108,7 +110,7 @@ function systemDraw(elementId, systemName) {
   })
     .then(function (response) {
       console.log('Successful data upload')
-      systemProcessData(response.data, elementId, systemName)
+      systemProcessData(response.data, elementId, systemName, width, height)
     })
     .catch(function (error) {
       console.log(error);
