@@ -16,8 +16,6 @@
   },
   "homepage": "https://github.com/mmaltsev/Xml2Tree",
   "devDependencies": {
-    "d3": "4.9.1",
-    "axios": "0.16.2",
     "jsdoc": "3.4.3",
     "uglify-js": "3.0.15"
   },
