@@ -24,7 +24,8 @@ function systemObjectDraw(object, systemSVG, constants) {
     .attr('cy', yOffset + width / 2)
     .attr('r', Math.pow(width, 1/1.2) * 3)
 	  .attr('id', object.name + 'Back')
-	  .attr('opacity', '0.4')
+	  .attr('opacity', '0.2')
+    .attr('vector-effect',  'non-scaling-stroke')
 	  .style('fill', 'transparent')
 	  
 	systemSVG.append('ellipse')
