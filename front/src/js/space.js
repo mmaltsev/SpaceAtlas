@@ -14,7 +14,6 @@ function spaceDraw(elementId, width, height) {
   	var canvasHeight = height
   }
   
-  console.log(elementId)
   var spaceSVG = d3.select('#' + elementId)
     .append('svg')
     .attr('width', canvasWidth)
@@ -33,7 +32,7 @@ function spaceDraw(elementId, width, height) {
 	  .attr('id', 'star1')
   
     spaceSVG.append('a')
-	  .attr('xlink:href', 'index.html?name=Solar') 
+	  .attr('xlink:href', 'system.html?name=Solar') 
 	  .append('circle')
       .attr('cx', width * 0.4 + width * 0.035)
       .attr('cy', height * 0.6 + width * 0.035)
@@ -50,7 +49,7 @@ function spaceDraw(elementId, width, height) {
 	  .attr('id', 'star2')
 
 	spaceSVG.append('a')
-	  .attr('xlink:href', 'index.html?name=Alpha_Cen') 
+	  .attr('xlink:href', 'system.html?name=Alpha_Cen') 
 	  .append('circle')
       .attr('cx', width * 0.7 + width * 0.05)
       .attr('cy', height * 0.2 + width * 0.05)

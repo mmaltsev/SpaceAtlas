@@ -1,4 +1,4 @@
-function processData(object, systemName) {
+function infoProcessData(object) {
   objectImageContainer = document.getElementById('objectImageContainer')
   objectInfobox = document.getElementById('objectInfobox')
   objectImageContainer.innerHTML = '<img src="' + object.image_path + '" class="object-image" />'
@@ -14,33 +14,25 @@ function processData(object, systemName) {
   }
 }
 
-function objectExtract() {
-  url = '' + window.location
-  getIndex = url.search('\\?')
-  if (getIndex > -1) {
-	url = url.substring(getIndex + 1, url.length)
-	systemIndex = url.search('=')
-	url = url.substring(systemIndex + 1, url.length)
-  } else {
-	url = ''
-  }
-  return url
-}
+function infoDraw(systemName) {
+  objectName = commonNameExtract()
 
-window.onload = function() {
-  objectName = objectExtract()
   if (objectName) {
-    $.ajax({
-      contentType: "application/json",
-      url: 'objects.json',
-      dataType: "json"
+    axios({
+      method:'get',
+      url:'json/objects.json',
+      responseType:'json'
     })
-      .then(function (data) {
-        console.log('Successful JSON upload')
-        processData(data[objectName])
+      .then(function (response) {
+        console.log('Successful data upload')
+        infoProcessData(response.data[objectName])
+        systemName.set(response.data[objectName].system)
       })
-      .fail(function(xhr, status, error) {
-        console.log('Error: ' + error + '. XHR: ' + xhr + '. Status: ' + status)
-      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } else {
+    console.log('Erorr: No object name specified')
+    window.location.href = 'index.html'
   }
 }

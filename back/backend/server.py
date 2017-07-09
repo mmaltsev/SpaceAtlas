@@ -11,7 +11,7 @@ from pylogging import HandlerType, setup_logger
 from .config import CONFIG
 
 logger = logging.getLogger(__name__)
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../../front/src')
 
 
 @app.before_first_request
@@ -24,7 +24,7 @@ def init():
 def root():
     """Root route."""
     logger.info("route: /")
-    return app.send_static_file('space.html')
+    return app.send_static_file('index.html')
     # return render_template("index.html")
     return
 
@@ -33,7 +33,12 @@ def root():
 def send_static(path):
     """Server static files."""
     logger.info("route: {}".format(path))
-    return send_from_directory('static', path)
+    # path forced to be ../../front if node_modules needed
+    if (len(path) > 13 and path[:13] == 'node_modules/'):
+        path_prefix = '../../front'
+    else:
+        path_prefix = '../../front/src'
+    return send_from_directory(path_prefix, path)
 
 
 def main():
