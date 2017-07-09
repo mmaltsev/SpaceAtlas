@@ -1,14 +1,15 @@
-# SpaceAtlas
-Detailed visualization of the Solar System and surroundings.
-
-
 # Development Installation
+
+Enable [Anaconda 3](https://www.continuum.io/downloads)
+
 ```
-$ git clone git@github.com:mmaltsev/SpaceAtlas.git
-$ cd SpaceAtlas
-# Enable Anaconda 3
 $ conda env create -f dev_environment.yml
 $ source activate SpaceAtlas
-# Change the hostname and port in backend/config.py
+```
+Change the hostname and port in backend/config.py if neccessary. By default, `hostname = localhost`, `port = 5555`.
+
+To start the server, run
+
+```
 $ python run.py
 ```
