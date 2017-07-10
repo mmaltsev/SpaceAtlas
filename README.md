@@ -14,4 +14,4 @@ For Windows, run:
 setup-from-scratch.bat
 ```
 
-By default, the app is available on [http://localhost:5555/](http://localhost:5555/)
+By default, the app will be available on [http://localhost:5555/](http://localhost:5555/)
