@@ -1,6 +1,6 @@
 # Development Installation
 
-Enable [Anaconda 3](https://www.continuum.io/downloads)
+Enable [Anaconda 3](https://www.continuum.io/downloads).
 
 ```
 $ conda env create -f dev_environment.yml
