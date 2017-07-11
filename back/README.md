@@ -8,7 +8,7 @@ $ source activate SpaceAtlas
 ```
 Change the hostname and port in backend/config.py if neccessary. By default, `hostname = localhost`, `port = 5555`.
 
-To start the server, run
+To start the server, run:
 
 ```
 $ python run.py
