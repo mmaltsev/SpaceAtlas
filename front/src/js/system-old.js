@@ -30,102 +30,9 @@ function systemConstantsSet(systemArr, width, height) {
   constants.windowWidth = width || window.innerWidth
   constants.windowHeight = height || window.innerHeight
   constants.imageInnerMarginRatio = 0.85
-  constants.fitUnit = constants.windowHeight / 
-    (systemArr[0].distance_to_mass_center + systemArr[0].mean_radius)
-  constants.starUnit = 25
-  constants.planetUnit = 125
-  return constants
-}
-
-function systemCanvasDraw(elementId) {
-  var systemSVG = d3.select('#' + elementId)
-    .append('svg')
-    .attr('width', '100%')
-    .attr('height', '100%')
-	  .call(d3.zoom().scaleExtent([1, 400]).on('zoom', function () {
-	    systemSVG.attr('transform', d3.event.transform)
-	  }))
-	  .append('g')
-  return systemSVG
-}
-
-function systemObjectDraw(object, systemSVG, constants) {
-  systemOrbitDraw(object, systemSVG, constants)
-  systemImageDraw(object, systemSVG, constants)
-  systemImageLinkAppend(object, systemSVG, constants)
-}
-
-function systemOrbitDraw(object, systemSVG, constants) {
-  var orbitXCenterOffset = constants.windowWidth / 2
-  var orbitYCenterOffset = constants.windowHeight / 2
-  var orbitRadius = object.distance_to_mass_center * constants.fitUnit / 2
-
-	systemSVG.append('ellipse')
-    .attr('cx', orbitXCenterOffset)
-    .attr('cy', orbitYCenterOffset)
-    .attr('rx', orbitRadius)
-	  .attr('ry', orbitRadius)
-	  .attr('vector-effect',  'non-scaling-stroke')
-	  .style('fill', 'transparent')
-	  .style('stroke', '#666')
-	  .style('stroke-width', '1px')
-}
-
-function systemImageDraw(object, systemSVG, constants) {
-  var imageDiameter = object.mean_radius * 2 * constants.fitUnit
-  imageDiameter = 
-    object.type === 'Star' 
-      ? imageDiameter * constants.starUnit 
-      : imageDiameter * constants.planetUnit
-  var imageXOffset = (constants.windowWidth + object.distance_to_mass_center * 
-    constants.fitUnit - imageDiameter) / 2
-  var imageYOffset = (constants.windowHeight - imageDiameter) / 2
-  var imagePath = object.image_path
-  var imageId = object.name
-
-  systemSVG.append('svg:image')
-    .attr('width', imageDiameter)
-    .attr('height', imageDiameter)
-    .attr('x', imageXOffset)
-    .attr('y', imageYOffset)
-    .attr('xlink:href', imagePath)
-	  .attr('id', imageId)
-}
-
-function systemImageLinkAppend(object, systemSVG, constants) {
-  var imageDiameter = object.mean_radius * 2 * constants.fitUnit
-  imageDiameter = 
-    object.type === 'Star' 
-      ? imageDiameter * constants.starUnit 
-      : imageDiameter * constants.planetUnit
-  var linkXOffset = (constants.windowWidth + object.distance_to_mass_center * 
-    constants.fitUnit) / 2
-  var linkYOffset = constants.windowHeight / 2
-  var linkCirlceRadius = imageDiameter * constants.imageInnerMarginRatio / 2
-  var linkPath = object.name
-
-  systemSVG.append('a')
-	  .attr('xlink:href', 'info.html?name=' + linkPath) 
-	  .append('circle')
-    .attr('cx', linkXOffset)
-    .attr('cy', linkYOffset)
-    .attr('r', linkCirlceRadius)
-	  .style('fill', 'transparent')
-	  .style('cursor', 'pointer')
-}
-
-/*
-
-function systemConstantsSet(systemArr, width, height) {
-  var constants = {}
-  constants.windowWidth = width || window.innerWidth
-  constants.windowHeight = height || window.innerHeight
-  constants.imageInnerMarginRatio = 0.85
   constants.objectDistanceRatio = 12000
   constants.objectSizeRatio = 0.05
   constants.starRatio = 0.5
-  var mostDistantObject = systemArr[0]
-  constants.unit = (mostDistantObject.distance_to_star / constants.windowWidth).toFixed(2)
   constants.starMarginAbs = 8000
   var startObject = systemArr[systemArr.length - 2]
   constants.canvasMargin = startObject.distance_to_star * constants.objectDistanceRatio - 
@@ -139,7 +46,7 @@ function systemCanvasDraw(elementId) {
     .append('svg')
     .attr('width', '100%')
     .attr('height', '100%')
-	  .call(d3.zoom().scaleExtent([1, 100]).on('zoom', function () {
+	  .call(d3.zoom().scaleExtent([0.001, 1]).on('zoom', function () {
 	    systemSVG.attr('transform', d3.event.transform)
 	  }))
 	  .append('g')
@@ -152,17 +59,10 @@ function systemObjectDraw(object, systemSVG, constants) {
   var xOffset = object.distance_to_star * constants.objectDistanceRatio - 
     constants.canvasMargin + constants.starMarginAbs
   var yOffset = (constants.windowHeight - height) / 2
-  console.log(constants.unit)
-  var width = (object.mean_radius * constants.objectSizeRatio * constants.unit).toFixed(2)
-  var height = (object.mean_radius * constants.objectSizeRatio * constants.unit).toFixed(2)
-  var xOffset = (object.distance_to_star * constants.objectDistanceRatio * constants.unit).toFixed(2)
-  var yOffset = ((constants.windowHeight - height) / 2).toFixed(2)
-  console.log(width, height, xOffset, yOffset)
 
   if (object.type === 'Star') {
     width = width * constants.starRatio
-    height = height * constants.starRatio
-  	//xOffset = - width / 2 - constants.canvasMargin
+  	xOffset = - width / 2 - constants.canvasMargin
   } else {
     systemOrbitAndOutlineDraw(systemSVG, object, constants, xOffset, yOffset, width, height)
   }
@@ -170,10 +70,10 @@ function systemObjectDraw(object, systemSVG, constants) {
 }
 
 function systemOrbitAndOutlineDraw(systemSVG, object, constants, xOffset, yOffset, width, height) {
-  var ellipseMajor = object.distance_to_star * constants.objectDistanceRatio * constants.unit + 
-    width / 2
-  var ellipseMinor = object.distance_to_star * constants.objectDistanceRatio * constants.unit + 
-    height / 2 - 1000
+  var ellipseMajor = object.distance_to_star * constants.objectDistanceRatio + 
+    width / 2  + constants.starMarginAbs
+  var ellipseMinor = object.distance_to_star * constants.objectDistanceRatio + 
+    height / 2 - 1000  + constants.starMarginAbs
 
   systemSVG.append('circle')
     .attr('cx', xOffset + width / 2)
@@ -185,7 +85,7 @@ function systemOrbitAndOutlineDraw(systemSVG, object, constants, xOffset, yOffse
 	  .style('fill', 'transparent')
 	  
 	systemSVG.append('ellipse')
-    .attr('cx', 0)
+    .attr('cx', 0 - constants.canvasMargin)
     .attr('cy', constants.windowHeight / 2)
     .attr('rx', ellipseMajor)
 	  .attr('ry', ellipseMinor)
@@ -228,4 +128,3 @@ function systemObjectHighlight(name, isMouseOver) {
     object.setAttribute('style', 'fill: transparent');
   }
 }
-*/

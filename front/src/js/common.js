@@ -27,17 +27,17 @@ function commonObjToSortArr(data, systemName, sortType) {
 }
 
 function commonCompareDesc(a, b) {
-  if (a.distance_to_star > b.distance_to_star)
+  if (a.distance_to_mass_center > b.distance_to_mass_center)
     return -1;
-  if (a.distance_to_star < b.distance_to_star)
+  if (a.distance_to_mass_center < b.distance_to_mass_center)
     return 1;
   return 0;
 }
 
 function commonCompareAsc(a, b) {
-  if (a.distance_to_star < b.distance_to_star)
+  if (a.distance_to_mass_center < b.distance_to_mass_center)
     return -1;
-  if (a.distance_to_star > b.distance_to_star)
+  if (a.distance_to_mass_center > b.distance_to_mass_center)
     return 1;
   return 0;
 }
