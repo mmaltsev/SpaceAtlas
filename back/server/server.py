@@ -29,15 +29,33 @@ def root():
     return
 
 
+@app.route('/system')
+def system():
+    """System route."""
+    logger.info("route: /system")
+    return app.send_static_file('system.html')
+
+
+@app.route('/info')
+def object():
+    """Object route."""
+    logger.info("route: /info")
+    return app.send_static_file('info.html')
+
+
+@app.route('/node_modules/<path:path>')
+def send_node_modules(path):
+    """Server static files from node_modules."""
+    logger.info("route: node_modules/{}".format(path))
+    path_prefix = '../../front/node_modules'
+    return send_from_directory(path_prefix, path)
+
+
 @app.route('/<path:path>')
 def send_static(path):
     """Server static files."""
     logger.info("route: {}".format(path))
-    # path forced to be ../../front if node_modules needed
-    if (len(path) > 13 and path[:13] == 'node_modules/'):
-        path_prefix = '../../front'
-    else:
-        path_prefix = '../../front/src'
+    path_prefix = '../../front/src'
     return send_from_directory(path_prefix, path)
 
 
